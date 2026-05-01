@@ -17,6 +17,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Update version in plugin file
+        run: |
+          version="${GITHUB_REF#refs/tags/v}"
+          sed -i "s/Version:     [0-9.]\+/Version:     $version/" preloader-plugin.php
+          sed -i "s/define( 'LP_VERSION',  '[0-9.]\+'/define( 'LP_VERSION',  '$version'/" preloader-plugin.php
+
+      - name: Commit version update
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add preloader-plugin.php
+          git commit -m "chore: update version to ${GITHUB_REF#refs/tags/v}"
+          git push
+
       - name: Create release ZIP
         run: |
           version="${GITHUB_REF#refs/tags/}"
