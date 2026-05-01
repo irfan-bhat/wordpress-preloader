@@ -17,6 +17,16 @@ define( 'LP_VERSION',  '1.2.0' );
 define( 'LP_DIR',      plugin_dir_path( __FILE__ ) );
 define( 'LP_URL',      plugin_dir_url( __FILE__ ) );
 define( 'LP_OPT',      'logo_preloader_options' );
+define( 'LP_GITHUB_REPO', 'irfanbhat/wordpress-preloader' );
+
+/* ---------------------------------------------------------------
+   Plugin update checker (GitHub releases)
+--------------------------------------------------------------- */
+require_once LP_DIR . 'includes/plugin-update-checker.php';
+
+add_action( 'plugins_loaded', function() {
+    new LP_Github_Updater( LP_GITHUB_REPO, plugin_basename( __FILE__ ), 'wp-preloader' );
+} );
 
 /* ---------------------------------------------------------------
    Default options
