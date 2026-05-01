@@ -123,10 +123,10 @@ jobs:
 
       - name: Copy plugin into WordPress plugins folder
         run: |
-          mkdir -p wp/wp-content/plugins/wordpress-preloader
-          rsync -a --exclude='.git' --exclude='wp' . wp/wp-content/plugins/wordpress-preloader/
+          mkdir -p wp/wp-content/plugins/wp-preloader
+          rsync -a --exclude='.git' --exclude='wp' . wp/wp-content/plugins/wp-preloader/
 
       - name: Activate plugin
         run: |
-          php wp-cli.phar plugin activate wordpress-preloader/preloader-plugin.php --path=wp --quiet
-          php wp-cli.phar plugin is-active wordpress-preloader/preloader-plugin.php --path=wp
+          php wp-cli.phar plugin activate wp-preloader/preloader-plugin.php --path=wp --quiet
+          php wp-cli.phar plugin is-active wp-preloader/preloader-plugin.php --path=wp

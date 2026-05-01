@@ -1,4 +1,4 @@
-/* WordPress Preloader v1.2 — admin JS — Irfan Bhat */
+/* WP Preloader v1.2 — admin JS — Irfan Bhat */
 jQuery(function ($) {
 
     /* ── Media uploader ── */

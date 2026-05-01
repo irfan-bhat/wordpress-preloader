@@ -1,6 +1,6 @@
-# WordPress Preloader
+# WP Preloader
 
-WordPress Preloader adds a lightweight frosted-glass loading overlay to your site. Display your logo, spinner ring, and optional progress bar while the page loads.
+WP Preloader adds a lightweight frosted-glass loading overlay to your site. Display your logo, spinner ring, and optional progress bar while the page loads.
 
 ## Plugin Details
 
@@ -13,7 +13,7 @@ WordPress Preloader adds a lightweight frosted-glass loading overlay to your sit
 
 ## Description
 
-WordPress Preloader creates a stylish full-screen loading screen using CSS `backdrop-filter` blur and tint. The blurred site content shows through while the preloader graphic animates, giving visitors a polished loading experience.
+WP Preloader creates a stylish full-screen loading screen using CSS `backdrop-filter` blur and tint. The blurred site content shows through while the preloader graphic animates, giving visitors a polished loading experience.
 
 ## Features
 

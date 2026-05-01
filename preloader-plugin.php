@@ -218,7 +218,7 @@ function lp_settings_page() {
 
                         <div class="lp-field lp-two-col">
                             <div>
-                                <label for="lp-logo-width"><?php esc_html_e( 'Logo width (px)', 'wordpress-preloader' ); ?></label>
+                                <label for="lp-logo-width"><?php esc_html_e( 'Logo width (px)', 'wp-preloader' ); ?></label>
                                 <input type="number" id="lp-logo-width" name="<?php echo LP_OPT; ?>[logo_width]"
                                     value="<?php echo esc_attr( $o['logo_width'] ); ?>" min="20" max="300" class="small-text"> px
                             </div>
@@ -226,18 +226,18 @@ function lp_settings_page() {
                     </div>
 
                     <div class="lp-card">
-                        <h2><?php esc_html_e( 'Backdrop blur', 'wordpress-preloader' ); ?></h2>
+                        <h2><?php esc_html_e( 'Backdrop blur', 'wp-preloader' ); ?></h2>
 
                         <div class="lp-field lp-two-col">
                             <div>
-                                <label for="lp-overlay-color"><?php esc_html_e( 'Overlay tint', 'wordpress-preloader' ); ?></label>
+                                <label for="lp-overlay-color"><?php esc_html_e( 'Overlay tint', 'wp-preloader' ); ?></label>
                                 <input type="color" id="lp-overlay-color" name="<?php echo LP_OPT; ?>[overlay_color]"
                                     value="<?php echo esc_attr( $o['overlay_color'] ); ?>">
                                 <input type="text" class="lp-hex-text" data-for="lp-overlay-color"
                                     value="<?php echo esc_attr( $o['overlay_color'] ); ?>" maxlength="7">
                             </div>
                             <div>
-                                <label for="lp-accent"><?php esc_html_e( 'Accent (ring & bar)', 'wordpress-preloader' ); ?></label>
+                                <label for="lp-accent"><?php esc_html_e( 'Accent (ring & bar)', 'wp-preloader' ); ?></label>
                                 <input type="color" id="lp-accent" name="<?php echo LP_OPT; ?>[accent_color]"
                                     value="<?php echo esc_attr( $o['accent_color'] ); ?>">
                                 <input type="text" class="lp-hex-text" data-for="lp-accent"
@@ -247,7 +247,7 @@ function lp_settings_page() {
 
                         <div class="lp-field">
                             <label for="lp-overlay-opacity">
-                                <?php esc_html_e( 'Overlay opacity', 'wordpress-preloader' ); ?>
+                                <?php esc_html_e( 'Overlay opacity', 'wp-preloader' ); ?>
                                 <span id="lp-opacity-val" class="lp-range-val"><?php echo esc_html( $o['overlay_opacity'] ); ?>%</span>
                             </label>
                             <input type="range" id="lp-overlay-opacity" name="<?php echo LP_OPT; ?>[overlay_opacity]"
@@ -256,7 +256,7 @@ function lp_settings_page() {
 
                         <div class="lp-field">
                             <label for="lp-blur">
-                                <?php esc_html_e( 'Blur strength', 'wordpress-preloader' ); ?>
+                                <?php esc_html_e( 'Blur strength', 'wp-preloader' ); ?>
                                 <span id="lp-blur-val" class="lp-range-val"><?php echo esc_html( $o['blur_strength'] ); ?>px</span>
                             </label>
                             <input type="range" id="lp-blur" name="<?php echo LP_OPT; ?>[blur_strength]"
@@ -265,39 +265,39 @@ function lp_settings_page() {
                     </div>
 
                     <div class="lp-card">
-                        <h2><?php esc_html_e( 'Elements', 'wordpress-preloader' ); ?></h2>
+                        <h2><?php esc_html_e( 'Elements', 'wp-preloader' ); ?></h2>
                         <div class="lp-field lp-checks">
                             <label>
                                 <input type="checkbox" name="<?php echo LP_OPT; ?>[show_ring]" value="1"
                                     <?php checked( $o['show_ring'] ); ?>>
-                                <?php esc_html_e( 'Show spinner ring', 'wordpress-preloader' ); ?>
+                                <?php esc_html_e( 'Show spinner ring', 'wp-preloader' ); ?>
                             </label>
                             <label>
                                 <input type="checkbox" name="<?php echo LP_OPT; ?>[show_bar]" value="1"
                                     <?php checked( $o['show_bar'] ); ?>>
-                                <?php esc_html_e( 'Show progress bar', 'wordpress-preloader' ); ?>
+                                <?php esc_html_e( 'Show progress bar', 'wp-preloader' ); ?>
                             </label>
                             <label>
                                 <input type="checkbox" name="<?php echo LP_OPT; ?>[enable_mobile]" value="1"
                                     <?php checked( $o['enable_mobile'] ); ?>>
-                                <?php esc_html_e( 'Show on mobile devices', 'wordpress-preloader' ); ?>
+                                <?php esc_html_e( 'Show on mobile devices', 'wp-preloader' ); ?>
                             </label>
                         </div>
                     </div>
 
                     <div class="lp-card">
-                        <h2><?php esc_html_e( 'Timing', 'wordpress-preloader' ); ?></h2>
+                        <h2><?php esc_html_e( 'Timing', 'wp-preloader' ); ?></h2>
                         <div class="lp-field lp-two-col">
                             <div>
-                                <label for="lp-fade"><?php esc_html_e( 'Fade-out duration (ms)', 'wordpress-preloader' ); ?></label>
+                                <label for="lp-fade"><?php esc_html_e( 'Fade-out duration (ms)', 'wp-preloader' ); ?></label>
                                 <input type="number" id="lp-fade" name="<?php echo LP_OPT; ?>[fade_duration]"
                                     value="<?php echo esc_attr( $o['fade_duration'] ); ?>" min="0" max="3000" class="small-text"> ms
                             </div>
                             <div>
-                                <label for="lp-min"><?php esc_html_e( 'Minimum display time (ms)', 'wordpress-preloader' ); ?></label>
+                                <label for="lp-min"><?php esc_html_e( 'Minimum display time (ms)', 'wp-preloader' ); ?></label>
                                 <input type="number" id="lp-min" name="<?php echo LP_OPT; ?>[min_display]"
                                     value="<?php echo esc_attr( $o['min_display'] ); ?>" min="0" max="5000" class="small-text"> ms
-                                <p class="description"><?php esc_html_e( 'Preloader stays visible for at least this long even if the page loads faster.', 'wordpress-preloader' ); ?></p>
+                                <p class="description"><?php esc_html_e( 'Preloader stays visible for at least this long even if the page loads faster.', 'wp-preloader' ); ?></p>
                             </div>
                         </div>
                     </div>
@@ -309,7 +309,7 @@ function lp_settings_page() {
             <!-- ── Live preview ── -->
             <div class="lp-preview-col">
                 <div class="lp-card lp-sticky">
-                    <h2><?php esc_html_e( 'Preview', 'wordpress-preloader' ); ?></h2>
+                    <h2><?php esc_html_e( 'Preview', 'wp-preloader' ); ?></h2>
                     <div id="lp-live-preview">
                         <div class="lp-prev-bg-sim"></div>
                         <div class="lp-prev-overlay" id="lpv-overlay"></div>
@@ -331,7 +331,7 @@ function lp_settings_page() {
                         </div>
                     </div>
                     <p class="description" style="text-align:center;margin-top:.5rem">
-                        <?php esc_html_e( 'Updates as you change settings', 'wordpress-preloader' ); ?>
+                        <?php esc_html_e( 'Updates as you change settings', 'wp-preloader' ); ?>
                     </p>
                 </div>
 
@@ -342,7 +342,7 @@ function lp_settings_page() {
                         &nbsp;·&nbsp;
                         <a href="mailto:info@irfanbhat.com">info@irfanbhat.com</a>
                     </p>
-                    <p class="lp-author-ver">WordPress Preloader v1.2</p>
+                    <p class="lp-author-ver">WP Preloader v1.2</p>
                 </div>
             </div>
         </div>
