@@ -1,0 +1,137 @@
+name: WordPress CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  php-syntax:
+    name: PHP syntax checks
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.0', '8.1', '8.2' ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v3
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '18'
+
+      - name: Validate PHP files
+        run: |
+          find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
+
+      - name: Validate JavaScript syntax
+        run: |
+          find . -name '*.js' -not -path './node_modules/*' -print0 | xargs -0 -n1 node -c
+
+  wordpress-integration:
+    name: WordPress integration tests
+    needs: php-syntax
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress
+          MYSQL_USER: wordpress
+          MYSQL_PASSWORD: wordpress
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    strategy:
+      matrix:
+        php: [ '8.0', '8.1' ]
+        wp: [ '6.4', '6.5' ]
+    env:
+      DB_NAME: wordpress
+      DB_USER: wordpress
+      DB_PASSWORD: wordpress
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v3
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Install WP-CLI
+        run: |
+          curl -o wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+
+      - name: Wait for MySQL
+        run: |
+          for i in {1..30}; do
+            if php -r "@mysqli_connect('127.0.0.1', 'wordpress', 'wordpress', 'wordpress', 3306);" >/dev/null 2>&1; then
+              echo 'MySQL is ready';
+              exit 0;
+            fi
+            sleep 2;
+          done
+          echo 'MySQL did not become ready in time.'
+          exit 1
+
+      - name: Download WordPress
+        run: |
+          php wp-cli.phar core download --path=wp --version=${{ matrix.wp }} --quiet
+
+      - name: Configure WordPress
+        run: |
+          php wp-cli.phar config create \
+            --path=wp \
+            --dbname=${{ env.DB_NAME }} \
+            --dbuser=${{ env.DB_USER }} \
+            --dbpass=${{ env.DB_PASSWORD }} \
+            --dbhost=${{ env.DB_HOST }} \
+            --dbprefix=wp_ \
+            --quiet
+
+      - name: Create database
+        run: |
+          php wp-cli.phar db create --path=wp --quiet
+
+      - name: Install WordPress
+        run: |
+          php wp-cli.phar core install \
+            --path=wp \
+            --url="http://localhost" \
+            --title="WP Test" \
+            --admin_user="admin" \
+            --admin_password="admin" \
+            --admin_email="admin@example.com" \
+            --skip-email \
+            --quiet
+
+      - name: Copy plugin into WordPress plugins folder
+        run: |
+          mkdir -p wp/wp-content/plugins/wordpress-preloader
+          rsync -a --exclude='.git' --exclude='wp' . wp/wp-content/plugins/wordpress-preloader/
+
+      - name: Activate plugin
+        run: |
+          php wp-cli.phar plugin activate wordpress-preloader/preloader-plugin.php --path=wp --quiet
+          php wp-cli.phar plugin is-active wordpress-preloader/preloader-plugin.php --path=wp
+
+      - name: Run plugin bootstrap check
+        run: |
+          php -r "require 'wp/wp-load.php'; require 'wp/wp-content/plugins/wordpress-preloader/preloader-plugin.php'; echo 'Plugin bootstrapped successfully.';"
