@@ -8,46 +8,56 @@ Stable tag:        1.2.0
 License:           GPL-2.0+
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-A customisable full-screen frosted-glass preloader with your logo, spinner ring, and progress bar.
+WordPress Preloader adds a lightweight frosted-glass loading overlay to your site. Display your logo, spinner ring, and optional progress bar while the page loads.
 
 == Description ==
 
-WordPress Preloader displays a sleek frosted-glass (backdrop-blur) overlay while your site loads. The page content shows through, blurred, while the logo and spinner animate over it.
+WordPress Preloader creates a stylish full-screen loading screen using CSS `backdrop-filter` blur and tint. The blurred site content shows through while the preloader graphic animates, giving visitors a polished loading experience.
 
 **Features**
 
-* Frosted-glass backdrop-blur — site content shows through beautifully
-* Adjustable blur strength (0–40 px) and overlay opacity
-* Upload any logo via the WordPress media library
-* Choose overlay tint and accent colour with live preview
-* Toggle the spinner ring and progress bar on/off
-* Set a minimum display time so the preloader never flashes by too quickly
-* Optionally disable on mobile devices
-* Clean fade-out after the page loads
-* Zero dependencies — pure CSS + vanilla JS, ~3 KB total
+* Upload a custom logo with the WordPress media library
+* Set logo width in pixels
+* Choose overlay tint color and opacity
+* Adjust blur strength from 0 to 40px
+* Pick an accent color for spinner and progress bar elements
+* Toggle the spinner ring on or off
+* Toggle the progress bar on or off
+* Set a minimum display duration to avoid rapid flashes
+* Configure fade-out duration for a smooth exit
+* Disable the preloader on mobile devices
+* No external dependencies — pure CSS and vanilla JavaScript
 
 == Installation ==
 
-1. Upload the `preloader-plugin` folder to `/wp-content/plugins/`
-   — OR — install directly via **Plugins › Add New › Upload Plugin**
+1. Upload the plugin folder to `/wp-content/plugins/`
 2. Activate the plugin through the **Plugins** menu
-3. Go to **Settings › WordPress Preloader** to configure
+3. Go to **Settings › Logo Preloader** to configure the appearance and behavior
+4. If your theme does not already include it, add `<?php wp_body_open(); ?>` immediately after the opening `<body>` tag in `header.php`
 
-== Author ==
+== Frequently Asked Questions ==
 
-Irfan Bhat
-https://irfanbhat.com
-info@irfanbhat.com
+= My theme does not support `wp_body_open()`. What should I do? =
+
+Add `<?php wp_body_open(); ?>` right after the opening `<body>` tag in your theme's `header.php`. This hook is required for the preloader to appear on the front end.
+
+= Can I disable the preloader on mobile devices? =
+
+Yes. Use the mobile toggle on the settings page to disable the preloader for mobile visitors.
+
+= How do I customize the overlay and blur effect? =
+
+Use the admin settings to choose an overlay tint color, adjust opacity, and set blur strength between 0 and 40px.
 
 == Changelog ==
 
 = 1.2.0 =
-* Changed background from opaque to frosted-glass backdrop-blur
-* Added blur strength slider (0–40 px)
-* Added overlay opacity slider (0–100 %)
-* Added overlay tint colour picker
-* Updated author details
-* Live preview now shows blur effect with simulated page content behind
+* Added frosted-glass backdrop blur effect
+* Added blur strength slider (0–40px)
+* Added overlay opacity slider
+* Added overlay tint color picker
+* Added accent color support
+* Improved admin live preview
 
 = 1.0.0 =
 * Initial release
