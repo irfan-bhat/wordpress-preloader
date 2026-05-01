@@ -1,0 +1,45 @@
+name: GitHub Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Build and publish release asset
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create release ZIP
+        run: |
+          version="${GITHUB_REF#refs/tags/}"
+          mkdir -p release
+          zip -r "release/wp-preloader-${version}.zip" . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x "release/*" \
+            -x "node_modules/*"
+
+      - id: create_release
+        name: Create GitHub release
+        uses: actions/create-release@v4
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: ${{ github.ref_name }}
+          body: "Release ${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v3
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release/wp-preloader-${{ github.ref_name }}.zip
+          asset_name: wp-preloader-${{ github.ref_name }}.zip
+          asset_content_type: application/zip
