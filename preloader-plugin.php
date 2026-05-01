@@ -193,16 +193,16 @@ function lp_settings_page() {
                         <h2><?php esc_html_e( 'Logo', 'wp-preloader' ); ?></h2>
 
                         <div class="lp-field">
-                            <label><?php esc_html_e( 'Logo image', 'wordpress-preloader' ); ?></label>
+                            <label><?php esc_html_e( 'Logo image', 'wp-preloader' ); ?></label>
                             <div class="lp-media-row">
                                 <input type="text" id="lp-logo-url" name="<?php echo LP_OPT; ?>[logo_url]"
                                     value="<?php echo esc_attr( $o['logo_url'] ); ?>" class="regular-text">
                                 <button type="button" id="lp-upload-btn" class="button">
-                                    <?php esc_html_e( 'Choose image', 'wordpress-preloader' ); ?>
+                                    <?php esc_html_e( 'Choose image', 'wp-preloader' ); ?>
                                 </button>
                                 <button type="button" id="lp-remove-btn" class="button lp-remove"
                                     <?php echo $o['logo_url'] ? '' : 'style="display:none"'; ?>>
-                                    <?php esc_html_e( 'Remove', 'wordpress-preloader' ); ?>
+                                    <?php esc_html_e( 'Remove', 'wp-preloader' ); ?>
                                 </button>
                             </div>
                             <?php if ( $o['logo_url'] ) : ?>
