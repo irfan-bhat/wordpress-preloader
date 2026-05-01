@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Update version in plugin file
         run: |
@@ -29,7 +31,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add preloader-plugin.php
           git commit -m "chore: update version to ${GITHUB_REF#refs/tags/v}"
-          git push
+          git push origin HEAD:main
 
       - name: Create release ZIP
         run: |
