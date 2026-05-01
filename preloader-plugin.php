@@ -3,7 +3,7 @@
  * Plugin Name: WP Preloader
  * Plugin URI:  https://wordpress.org/plugins/wp-preloader/
  * Description: A customisable full-screen backdrop-blur preloader with your logo, spinner, and progress bar.
- * Version:     1.2.5
+ * Version:     1.2.6
  * Author:      Irfan Bhat
  * Author URI:  https://irfanbhat.com
  * License:     GPL-2.0+
@@ -13,7 +13,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'LP_VERSION',  '1.2.5' );
+define( 'LP_VERSION',  '1.2.6' );
 define( 'LP_DIR',      plugin_dir_path( __FILE__ ) );
 define( 'LP_URL',      plugin_dir_url( __FILE__ ) );
 define( 'LP_OPT',      'logo_preloader_options' );
