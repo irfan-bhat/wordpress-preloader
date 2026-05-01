@@ -130,3 +130,35 @@ jobs:
         run: |
           php wp-cli.phar plugin activate wp-preloader/preloader-plugin.php --path=wp --quiet
           php wp-cli.phar plugin is-active wp-preloader/preloader-plugin.php --path=wp
+
+      - name: Generate GitHub attestation
+        env:
+          PHP_VERSION: ${{ matrix.php }}
+          WP_VERSION: ${{ matrix.wp }}
+        run: |
+          mkdir -p attestation
+          cat > attestation/github-attestation.json <<'EOF'
+{
+  "subject": "wp-preloader",
+  "type": "github-actions-attestation",
+  "repository": "${GITHUB_REPOSITORY}",
+  "workflow": "${GITHUB_WORKFLOW}",
+  "job": "${GITHUB_JOB}",
+  "run_id": "${GITHUB_RUN_ID}",
+  "run_number": "${GITHUB_RUN_NUMBER}",
+  "sha": "${GITHUB_SHA}",
+  "ref": "${GITHUB_REF}",
+  "matrix": {
+    "php": "${PHP_VERSION}",
+    "wp": "${WP_VERSION}"
+  },
+  "status": "passed",
+  "timestamp": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+}
+EOF
+
+      - name: Upload attestation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-attestation
+          path: attestation/github-attestation.json
